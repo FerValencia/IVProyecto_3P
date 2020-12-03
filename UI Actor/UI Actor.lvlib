@@ -6,6 +6,7 @@
 	<Item Name="Messages for this Actor" Type="Folder">
 		<Item Name="Init Msg.lvclass" Type="LVClass" URL="../../UI Actor Messages/Init Msg/Init Msg.lvclass"/>
 		<Item Name="Read ADC Msg.lvclass" Type="LVClass" URL="../../UI Actor Messages/Read ADC Msg/Read ADC Msg.lvclass"/>
+		<Item Name="Set Pin Status Msg.lvclass" Type="LVClass" URL="../../UI Actor Messages/Set Pin Status Msg/Set Pin Status Msg.lvclass"/>
 	</Item>
 	<Item Name="UI Actor.lvclass" Type="LVClass" URL="../UI Actor.lvclass"/>
 </Library>

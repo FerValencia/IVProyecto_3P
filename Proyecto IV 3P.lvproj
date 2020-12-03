@@ -10,14 +10,19 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Abstract" Type="Folder" URL="../Abstract">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
+		<Item Name="Abstract" Type="Folder">
+			<Item Name="Abstract" Type="Folder" URL="../Abstract">
+				<Property Name="NI.DISK" Type="Bool">true</Property>
+			</Item>
 		</Item>
 		<Item Name="Implementations" Type="Folder">
-			<Item Name="Simulado" Type="Folder"/>
+			<Item Name="Implementations" Type="Folder" URL="../Implementations">
+				<Property Name="NI.DISK" Type="Bool">true</Property>
+			</Item>
 		</Item>
 		<Item Name="Unit Test" Type="Folder">
 			<Item Name="Test ADC Command.lvclass" Type="LVClass" URL="../Test ADC Command/Test ADC Command.lvclass"/>
+			<Item Name="Test Set Pin Status Command.lvclass" Type="LVClass" URL="../Test Set Pin Status Command/Test Set Pin Status Command.lvclass"/>
 		</Item>
 		<Item Name="EjFGV.vi" Type="VI" URL="../EjFGV.vi"/>
 		<Item Name="FGV Variant.vi" Type="VI" URL="../FGV Variant.vi"/>
@@ -322,11 +327,7 @@
 				<Item Name="Waveform Subtype Enum__ogtk__jki_vi_tester.ctl" Type="VI" URL="/&lt;vilib&gt;/addons/_JKI Toolkits/VI Tester/_support/Support.llb/Waveform Subtype Enum__ogtk__jki_vi_tester.ctl"/>
 			</Item>
 			<Item Name="AF Debug.lvlib" Type="Library" URL="/&lt;resource&gt;/AFDebug/AF Debug.lvlib"/>
-			<Item Name="comm Msg.lvclass" Type="LVClass" URL="../UI Actor Messages/comm Msg/comm Msg.lvclass"/>
-			<Item Name="comm.vi" Type="VI" URL="../UI Actor/comm.vi"/>
 			<Item Name="LV Config Read String.vi" Type="VI" URL="/&lt;resource&gt;/Dialog/lvconfig.llb/LV Config Read String.vi"/>
-			<Item Name="NXP.lvclass" Type="LVClass" URL="../Implementations/NXP/NXP.lvclass"/>
-			<Item Name="Simulado.lvclass" Type="LVClass" URL="../Implementations/Simulado/Simulado.lvclass"/>
 			<Item Name="systemLogging.dll" Type="Document" URL="systemLogging.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
