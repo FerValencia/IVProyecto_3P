@@ -65,4 +65,13 @@
 		<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 		<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 	</Item>
+	<Item Name="Send command Set Port.vi" Type="VI" URL="../Send command Set Port.vi">
+		<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">)!#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!&amp;4!!!!$A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!%%!Q`````Q&gt;$&lt;WVN97ZE!"J!-0````]228BQ:7.U:71A=G6T='^O=W5!(E"Q!"Y!!!U,4FB1,GRW9WRB=X-!"UZ95#"P&gt;81!"!!!!!Z!-0````]&amp;47&amp;S9W%!)%"1!!-!!!!"!!)4:8*S&lt;X)A;7YA+'ZP)'6S=G^S+1!31$$`````#6:B&lt;'^S)%B&amp;7!!11$$`````"F"V:8*U&lt;Q!!(E"Q!"Y!!!U,4FB1,GRW9WRB=X-!"EZ95#"J&lt;A!!6!$Q!!Q!!Q!%!!5!"A!(!!=!"Q!)!!E!#A!,!!Q$!!"Y!!!.#!!!#1!!!!E!!!#*!!!!!!!!!!!!!!!!!!!"#A!!!!I!!!))!!!##!!!!*!!!!!!!1!.!!!!!!</Property>
+		<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+		<Property Name="NI.ClassItem.Flags" Type="Int">1073741824</Property>
+		<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
+		<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+		<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+		<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
+	</Item>
 </LVClass>
