@@ -22,6 +22,7 @@
 		</Item>
 		<Item Name="Unit Test" Type="Folder">
 			<Item Name="Test ADC Command.lvclass" Type="LVClass" URL="../Test ADC Command/Test ADC Command.lvclass"/>
+			<Item Name="Test Get Pin Status.lvclass" Type="LVClass" URL="../Test Get Pin Status/Test Get Pin Status.lvclass"/>
 			<Item Name="Test Set Pin Status Command.lvclass" Type="LVClass" URL="../Test Set Pin Status Command/Test Set Pin Status Command.lvclass"/>
 			<Item Name="Test Set Port Status Command.lvclass" Type="LVClass" URL="../Test Set Port Status Command/Test Set Port Status Command.lvclass"/>
 		</Item>
