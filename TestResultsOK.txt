@@ -1,0 +1,20 @@
+Test Set Port Status Comm (Test Set Port Status Command)
+ ... 
+ok 0.020 sec
+Test Set Pin Status Command (Test Set Pin Status Command)
+ ... 
+ok 0.020 sec
+Test Get Port Status Comm (Test Get Port Status Comand)
+ ... 
+ok 0.018 sec
+Test Get Pin Status Comm (Test Get Pin Status)
+ ... 
+ok 0.020 sec
+Test Serial ADC Command Response (Test ADC Command)
+ ... 
+ok 0.022 sec
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.285s
+
+OK
