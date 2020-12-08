@@ -1,0 +1,1604 @@
+= Proyecto Final Intrumentacion Virtual
+Maria Fernanda Valencia Gutierrez <marifervale2010@hotmail.com>
+:doctype: book
+:toc: 
+:imagesdir: Images
+:sectnums: 
+:toclevels: 3
+:chapter-label: Section
+
+== Project description
+
+Proyecto final de instrumentacion virtual. Hecho por Maria Fernanda Valencia Gutierrez el 07/12/2020
+
+== Code component descriptions
+
+=== DQMH(R) modules
+
+This section describes DQMH(R) module responsibilities and relationships.
+
+==== Preamble
+
+A DQMH module is the main component of an architecture based on DQMH(R) framework. A DQMH module is used to implement a section of the application that has one responsibility.
+
+DQMH(R) framework defines two different type of DQMH module.  
+
+====
+*Singleton:*
+
+A Singleton DQMH module can have only one instance running at any given time.
+====
+
+====
+*Cloneable:*
+
+A Cloneable DQMH module can have one or multiple instances running in parallel.
+====
+
+DQMH(R) framework defines two different ways to carry data throughout the application and with both other DQMH modules and non-DQMH based code.
+
+====
+*Request events:*
+
+A request is a code that fires an event requesting the DQMH module to do something. Multiple locations in the code can send events to the DQMH module.
+
+Request events are many-to-one.
+
+Requests are usually named using imperative tense.
+====
+
+====
+*Broadcast events:*
+
+A broadcast is a code that fires an event broadcasting that the DQMH module did something. Multiple Event Structures can register to handle the Broadcast Events.
+
+Broadcast Events are one-to-many.
+
+Broadcasts are usually named using past tense or passive voice.
+====
+
+NOTE: Refer to the DQMH(R) framework official http://delacor.com/documentation/dqmh-html/[documentation] to find more details on how the framework works
+
+
+The following section gives you details on the project architecture relying on this framework.
+It gives you an overview of the modules' interaction and detailed information on each module.
+
+Graphs used in this section have the following legend:
+
+*Components:*
+
+
+[graphviz, format="png", align="center"]
+....
+digraph G656354 {
+rankdir=LR;
+edge[dir=both color=black  arrowhead=normal arrowtail=none style=filled penwidth=1]
+node[color=black shape=box]
+"DQMH module / Lvlib"[color=black shape=component]
+"Vi"[color=skyblue shape=note]
+}
+....
+
+*Events:*
+
+[graphviz, format="png", align="center"]
+....
+digraph G822434 {
+rankdir=LR;
+edge[dir=both color=black  arrowhead=normal arrowtail=none style=filled penwidth=1]
+node[color=black shape=box]
+" "[color=white shape=box]
+"  "[color=white shape=box]
+"   "[color=white shape=box]
+"    "[color=white shape=box]
+" " -> "  " [label="Request to a DQMH module" dir=both color=forestgreen  arrowhead=normal arrowtail=none style=filled penwidth=1];
+"   " -> "    " [label="Broadcast from a DQMH module" dir=both color=goldenrod  arrowhead=normal arrowtail=none style=dashed penwidth=1];
+}
+....
+
+*Start and Stop module callers:*
+
+[graphviz, format="png", align="center"]
+....
+digraph G264088 {
+rankdir=LR;
+edge[dir=both color=black  arrowhead=normal arrowtail=none style=filled penwidth=1]
+node[color=black shape=box]
+"Start Module
+caller"[color=black shape=component]
+"Start Module"[color=yellowgreen shape=note]
+"Start Module" -> "Start Module
+caller" [label="Called by" dir=both color=yellowgreen  arrowhead=odot arrowtail=inv style=filled penwidth=1];
+}
+....
+
+[graphviz, format="png", align="center"]
+....
+digraph G93019 {
+rankdir=LR;
+edge[dir=both color=black  arrowhead=normal arrowtail=none style=filled penwidth=1]
+node[color=black shape=box]
+"Stop Module
+caller"[color=black shape=component]
+"Stop Module"[color=tomato shape=note]
+"Stop Module" -> "Stop Module
+caller" [label="Called by" dir=both color=tomato  arrowhead=odot arrowtail=inv style=dotted penwidth=1];
+}
+....
+
+
+==== Modules overview
+
+This project contains the following modules.
+
+.Modules list
+|===
+|Singleton|Cloneable
+
+|===
+
+This graph represents the links between all DQMH modules.
+
+[graphviz, format="png", align="center"]
+....
+digraph G408265 {
+rankdir=LR;
+edge[dir=both color=black  arrowhead=normal arrowtail=none style=filled penwidth=1]
+node[color=black shape=box]
+}
+....
+
+
+=== Libraries
+
+This section describes the libraries contained in the project.
+
+==== UI Actor.lvlib
+
+Libreria del Actor principal
+
+
+=== Classes
+
+This section describes the classes contained in the project.
+
+==== Serial Device.lvclass
+
+Esta clase contiene todos los dinamic dispatch vis que se utilizaron en cada implementación para cada marca además de los que crean cada comando y el que se encarga de leer el puerto serial.
+
+
+==== Arduino.lvclass
+
+Clase para la marca de microcontroladores Arduino, en esta ocasion probado con uno modelo Arduino NANO
+
+
+==== NXP.lvclass
+
+Clase para la marca de microcontroladores NXP
+
+
+==== Simulado.lvclass
+
+Esta clase es para un microcontrolador simulado
+
+
+==== Test ADC Command.lvclass
+
+Clase para probar el comando para leer el ADC
+
+
+==== Test Get Pin Status.lvclass
+
+Clase para probar el comando para obtener el estatus del pin
+
+
+==== Test Get Port Status Comand.lvclass
+
+Clase para probar el comando para obtener el status del puerto
+
+
+==== Test Set Pin Status Command.lvclass
+
+Clase para probar el comando para dar valor a un pin
+
+
+==== Test Set Port Status Command.lvclass
+
+Clase para probar el comando para dar valor a un puerto en hexadecimal
+
+
+==== Get Pin Status Msg.lvclass
+
+Mensajes para obtener el status de un pin
+
+
+==== Get Port Status Msg.lvclass
+
+Mensajes para obtener el status de un puerto
+
+
+==== Init Msg.lvclass
+
+Mensaje para incializar la comuncacion con el microcontrolador
+
+
+==== Read ADC Msg.lvclass
+
+Mensajes para leer el ADC
+
+
+==== Set Pin Status Msg.lvclass
+
+Mensajes para darle valor a un pin
+
+
+==== Set Port Status Msg.lvclass
+
+Mensajes para darle valor a un puerto en hexadecimal
+
+
+==== UI Actor.lvclass
+
+Clase del Actor UI principal
+
+
+== VI descriptions
+
+=== DQMH(R) modules
+
+This section describes DQMH(R) modules events.
+
+=== Libraries
+
+This section describes libraries public VIs.
+
+==== UI Actor.lvlib
+
+===== UI Actor.lvlib:Get Pin Status Msg.lvclass:Send Get Pin Status.vi
+
+:imgpath: UI Actor.lvlib_Get Pin Status Msg.lvclass_Send Get Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Pin Status Msg.lvclass:Send Get Pin Status.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status de un pin
+++++
+
+===== UI Actor.lvlib:Get Pin Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Get Pin Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Pin Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para obtener el status de un pin
+++++
+
+===== UI Actor.lvlib:Get Port Status Msg.lvclass:Send Get Port Status.vi
+
+:imgpath: UI Actor.lvlib_Get Port Status Msg.lvclass_Send Get Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Port Status Msg.lvclass:Send Get Port Status.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status del puerto
+++++
+
+===== UI Actor.lvlib:Get Port Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Get Port Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Port Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status del puerto
+++++
+
+===== UI Actor.lvlib:Init Msg.lvclass:Send Init.vi
+
+:imgpath: UI Actor.lvlib_Init Msg.lvclass_Send Init.vi.png
+image::{imgpath}[UI Actor.lvlib:Init Msg.lvclass:Send Init.vi]
+
+*Description:*
+++++
+Manda mensaje para incializar la comuncacion con el microcontrolador
+++++
+
+===== UI Actor.lvlib:Init Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Init Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Init Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para incializar la comuncacion con el microcontrolador
+++++
+
+===== UI Actor.lvlib:Read ADC Msg.lvclass:Send Read ADC.vi
+
+:imgpath: UI Actor.lvlib_Read ADC Msg.lvclass_Send Read ADC.vi.png
+image::{imgpath}[UI Actor.lvlib:Read ADC Msg.lvclass:Send Read ADC.vi]
+
+*Description:*
+++++
+Manda mensaje para leer el ADC
+++++
+
+===== UI Actor.lvlib:Read ADC Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Read ADC Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Read ADC Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para leer el ADC
+++++
+
+===== UI Actor.lvlib:Set Pin Status Msg.lvclass:Send Set Pin Status.vi
+
+:imgpath: UI Actor.lvlib_Set Pin Status Msg.lvclass_Send Set Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Pin Status Msg.lvclass:Send Set Pin Status.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un pin
+++++
+
+===== UI Actor.lvlib:Set Pin Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Set Pin Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Pin Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un pin
+++++
+
+===== UI Actor.lvlib:Set Port Status Msg.lvclass:Send Set Port Status.vi
+
+:imgpath: UI Actor.lvlib_Set Port Status Msg.lvclass_Send Set Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Port Status Msg.lvclass:Send Set Port Status.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un puerto en hexadecimal
+++++
+
+===== UI Actor.lvlib:Set Port Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Set Port Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Port Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un puerto en hexadecimal
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Marca.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Marca.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Marca.vi]
+
+*Description:*
+++++
+Lee la marca del micro
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Marca.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Marca.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Marca.vi]
+
+*Description:*
+++++
+Escribe la marca del micro
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Visa com port.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Visa com port.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Visa com port.vi]
+
+*Description:*
+++++
+Lee el puerto com
+
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Visa com port.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Visa com port.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Visa com port.vi]
+
+*Description:*
+++++
+Escribe el puerto com
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Visa com port 2.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Visa com port 2.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Visa com port 2.vi]
+
+*Description:*
+++++
+Lee el puerto com
+
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Visa com port 2.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Visa com port 2.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Visa com port 2.vi]
+
+*Description:*
+++++
+Escribe el puerto com
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Get Pin Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Get Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Get Pin Status.vi]
+
+*Description:*
+++++
+Obtiene el valor del pin del micro seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Get Port Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Get Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Get Port Status.vi]
+
+*Description:*
+++++
+Obtiene el valor del puerto del micro de la marca seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Init.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Init.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Init.vi]
+
+*Description:*
+++++
+Inicializa la comunicacion serial con el micro de la marca seleccionada
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read ADC.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read ADC.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read ADC.vi]
+
+*Description:*
+++++
+Lee el valor que se encuentre en el ADC del micro de la marca seleccionada
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDGETPort.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDGETPort.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDGETPort.vi]
+
+*Description:*
+++++
+Dependiendo del comando que se obtenga serial para saber el valor del puerto es traducido en leds que se muestran en Actor core con ayuda de eventos
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDLEDUPDT.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDLEDUPDT.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDLEDUPDT.vi]
+
+*Description:*
+++++
+Dependiendo de la respuesta que de el puerto serial se traducira en leds para mostrar el estatus tambien en la interfaz del actor ui
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDPORTUPDT.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDPORTUPDT.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDPORTUPDT.vi]
+
+*Description:*
+++++
+Dependiendo del comando que se obtenga serial para saber el valor del puerto es traducido en leds que se muestran en Actor core con ayuda de eventos
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDSETP.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDSETP.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDSETP.vi]
+
+*Description:*
+++++
+Dependiendo de la respuesta que de el puerto serial se traducira en leds para mostrar el estatus tambien en la interfaz del actor ui
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Set Pin Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Set Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Set Pin Status.vi]
+
+*Description:*
+++++
+Se le da un valor de alto o bajo a un pin de un puerto de la marca del micro seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Set Port Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Set Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Set Port Status.vi]
+
+*Description:*
+++++
+Se le da un valor en hexadecimal a un puerto de la marca del micro seleccionado
+++++
+
+=== Classes
+
+This section describes classes public VIs.
+
+==== Serial Device.lvclass
+
+===== Serial Device.lvclass:Read Visa com port.vi
+
+:imgpath: Serial Device.lvclass_Read Visa com port.vi.png
+image::{imgpath}[Serial Device.lvclass:Read Visa com port.vi]
+
+*Description:*
+++++
+Lee el puerto com
+
+++++
+
+===== Serial Device.lvclass:Write Visa com port.vi
+
+:imgpath: Serial Device.lvclass_Write Visa com port.vi.png
+image::{imgpath}[Serial Device.lvclass:Write Visa com port.vi]
+
+*Description:*
+++++
+Escribe el puerto com
+++++
+
+===== Serial Device.lvclass:ADC Command.vi
+
+:imgpath: Serial Device.lvclass_ADC Command.vi.png
+image::{imgpath}[Serial Device.lvclass:ADC Command.vi]
+
+*Description:*
+++++
+Se forma el comando para leer el ADC de cada marca
+++++
+
+===== Serial Device.lvclass:Close connection.vi
+
+:imgpath: Serial Device.lvclass_Close connection.vi.png
+image::{imgpath}[Serial Device.lvclass:Close connection.vi]
+
+*Description:*
+++++
+Se cierra la conexion actual del puerto com
+
+++++
+
+===== Serial Device.lvclass:Command.vi
+
+:imgpath: Serial Device.lvclass_Command.vi.png
+image::{imgpath}[Serial Device.lvclass:Command.vi]
+
+*Description:*
+++++
+Se tiene solamente el vit del comando vacio
+++++
+
+===== Serial Device.lvclass:Command.vit
+
+:imgpath: Serial Device.lvclass_Command.vit.png
+image::{imgpath}[Serial Device.lvclass:Command.vit]
+
+*Description:*
+++++
+Este es el vit para generar los comandos con cada parametro dependiendo de lo que se solicite
+++++
+
+===== Serial Device.lvclass:Core command.vi
+
+:imgpath: Serial Device.lvclass_Core command.vi.png
+image::{imgpath}[Serial Device.lvclass:Core command.vi]
+
+*Description:*
+++++
+Es un esqueleto para generar el comando donde junta todos los parametros y da un comando de salida
+++++
+
+===== Serial Device.lvclass:Get Pin Command.vi
+
+:imgpath: Serial Device.lvclass_Get Pin Command.vi.png
+image::{imgpath}[Serial Device.lvclass:Get Pin Command.vi]
+
+*Description:*
+++++
+Se genera el comando para obtener el estatus del pin seleccionado
+++++
+
+===== Serial Device.lvclass:Get Port Command.vi
+
+:imgpath: Serial Device.lvclass_Get Port Command.vi.png
+image::{imgpath}[Serial Device.lvclass:Get Port Command.vi]
+
+*Description:*
+++++
+Se forma el comando para obtener el estatus del puerto seleccionado
+++++
+
+===== Serial Device.lvclass:Initialize.vi
+
+:imgpath: Serial Device.lvclass_Initialize.vi.png
+image::{imgpath}[Serial Device.lvclass:Initialize.vi]
+
+*Description:*
+++++
+Se hace la inicializacion dependiendo de la marca que se tenga de entrada
+++++
+
+===== Serial Device.lvclass:Read VISA.vi
+
+:imgpath: Serial Device.lvclass_Read VISA.vi.png
+image::{imgpath}[Serial Device.lvclass:Read VISA.vi]
+
+*Description:*
+++++
+Lee el buffer del puerto serial que se seleccione y da como resultado todo lo que contenga, tiene un retardo de 30ms para hacer la comunicacion
+++++
+
+===== Serial Device.lvclass:Send command ADC.vi
+
+:imgpath: Serial Device.lvclass_Send command ADC.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command ADC.vi]
+
+*Description:*
+++++
+Se tiene dentro el comando del ADC y este sera solo para mandarlo a llamar
+
+++++
+
+===== Serial Device.lvclass:Send command Get Pin.vi
+
+:imgpath: Serial Device.lvclass_Send command Get Pin.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command Get Pin.vi]
+
+*Description:*
+++++
+Se tiene dentro el comando para obtener el estatus del pin y este sera solo para mandarlo a llamar
+++++
+
+===== Serial Device.lvclass:Send command Get Port.vi
+
+:imgpath: Serial Device.lvclass_Send command Get Port.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command Get Port.vi]
+
+*Description:*
+++++
+Se tiene dentro el comando para obtener el estatus del puerto y este sera solo para mandarlo a llamar
+++++
+
+===== Serial Device.lvclass:Send command Set Pin.vi
+
+:imgpath: Serial Device.lvclass_Send command Set Pin.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command Set Pin.vi]
+
+*Description:*
+++++
+Se tiene dentro el comando para poner el pin en un valor y este sera solo para mandarlo a llamar
+++++
+
+===== Serial Device.lvclass:Send command Set Port.vi
+
+:imgpath: Serial Device.lvclass_Send command Set Port.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command Set Port.vi]
+
+*Description:*
+++++
+Se tiene dentro el comando para poner el puerto en un valor y este sera solo para mandarlo a llamar
+++++
+
+===== Serial Device.lvclass:Send command.vi
+
+:imgpath: Serial Device.lvclass_Send command.vi.png
+image::{imgpath}[Serial Device.lvclass:Send command.vi]
+
+*Description:*
+++++
+Es para mandar los distintos comandos
+++++
+
+===== Serial Device.lvclass:Send command.vit
+
+:imgpath: Serial Device.lvclass_Send command.vit.png
+image::{imgpath}[Serial Device.lvclass:Send command.vit]
+
+*Description:*
+++++
+Este es el vit para mandar los distintos comandos
+++++
+
+===== Serial Device.lvclass:Set pin command.vi
+
+:imgpath: Serial Device.lvclass_Set pin command.vi.png
+image::{imgpath}[Serial Device.lvclass:Set pin command.vi]
+
+*Description:*
+++++
+Aqui se forma el comando para poner el pin de un puerto en alto o bajo, y dependiendo de la marca que se le coloque.
+++++
+
+===== Serial Device.lvclass:Set port command.vi
+
+:imgpath: Serial Device.lvclass_Set port command.vi.png
+image::{imgpath}[Serial Device.lvclass:Set port command.vi]
+
+*Description:*
+++++
+Aqui se forma el comando para poner el puerto en un valor en hexadecimal, y dependiendo de la marca que se le coloque.
+++++
+
+==== Arduino.lvclass
+
+===== Arduino.lvclass:Initialize.vi
+
+:imgpath: Arduino.lvclass_Initialize.vi.png
+image::{imgpath}[Arduino.lvclass:Initialize.vi]
+
+*Description:*
+++++
+Se inicializa la comunicacion con el arduino de manera serial
+++++
+
+===== Arduino.lvclass:Send command ADC.vi
+
+:imgpath: Arduino.lvclass_Send command ADC.vi.png
+image::{imgpath}[Arduino.lvclass:Send command ADC.vi]
+
+*Description:*
+++++
+Se manda el comando para leer el ADC, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Arduino.lvclass:Send command Get Pin.vi
+
+:imgpath: Arduino.lvclass_Send command Get Pin.vi.png
+image::{imgpath}[Arduino.lvclass:Send command Get Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para leer obtener el status del pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Arduino.lvclass:Send command Get Port.vi
+
+:imgpath: Arduino.lvclass_Send command Get Port.vi.png
+image::{imgpath}[Arduino.lvclass:Send command Get Port.vi]
+
+*Description:*
+++++
+Se manda el comando para obtener el estatus del puerto, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Arduino.lvclass:Send command Set Pin.vi
+
+:imgpath: Arduino.lvclass_Send command Set Pin.vi.png
+image::{imgpath}[Arduino.lvclass:Send command Set Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para darle un valor a un pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Arduino.lvclass:Send command Set Port.vi
+
+:imgpath: Arduino.lvclass_Send command Set Port.vi.png
+image::{imgpath}[Arduino.lvclass:Send command Set Port.vi]
+
+*Description:*
+++++
+Se manda el comando para poner el peurto en un valor en hexadecimal, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+==== NXP.lvclass
+
+===== NXP.lvclass:Initialize.vi
+
+:imgpath: NXP.lvclass_Initialize.vi.png
+image::{imgpath}[NXP.lvclass:Initialize.vi]
+
+*Description:*
+++++
+Se inicializa la comunicacion con el nxp de manera serial
+++++
+
+===== NXP.lvclass:Send command ADC.vi
+
+:imgpath: NXP.lvclass_Send command ADC.vi.png
+image::{imgpath}[NXP.lvclass:Send command ADC.vi]
+
+*Description:*
+++++
+Se manda el comando para leer el ADC, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== NXP.lvclass:Send command Get Pin.vi
+
+:imgpath: NXP.lvclass_Send command Get Pin.vi.png
+image::{imgpath}[NXP.lvclass:Send command Get Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para leer obtener el status del pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== NXP.lvclass:Send command Get Port.vi
+
+:imgpath: NXP.lvclass_Send command Get Port.vi.png
+image::{imgpath}[NXP.lvclass:Send command Get Port.vi]
+
+*Description:*
+++++
+Se manda el comando para obtener el estatus del puerto, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== NXP.lvclass:Send command Set Pin.vi
+
+:imgpath: NXP.lvclass_Send command Set Pin.vi.png
+image::{imgpath}[NXP.lvclass:Send command Set Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para darle un valor a un pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== NXP.lvclass:Send command Set Port.vi
+
+:imgpath: NXP.lvclass_Send command Set Port.vi.png
+image::{imgpath}[NXP.lvclass:Send command Set Port.vi]
+
+*Description:*
+++++
+Se manda el comando para poner el peurto en un valor en hexadecimal, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+==== Simulado.lvclass
+
+===== Simulado.lvclass:Read Simulated commands.vi
+
+:imgpath: Simulado.lvclass_Read Simulated commands.vi.png
+image::{imgpath}[Simulado.lvclass:Read Simulated commands.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Simulado.lvclass:Write Simulated commands.vi
+
+:imgpath: Simulado.lvclass_Write Simulated commands.vi.png
+image::{imgpath}[Simulado.lvclass:Write Simulated commands.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Simulado.lvclass:Initialize.vi
+
+:imgpath: Simulado.lvclass_Initialize.vi.png
+image::{imgpath}[Simulado.lvclass:Initialize.vi]
+
+*Description:*
+++++
+Se inicializa la comunicacion con el micro simulado de manera serial
+++++
+
+===== Simulado.lvclass:Send command ADC.vi
+
+:imgpath: Simulado.lvclass_Send command ADC.vi.png
+image::{imgpath}[Simulado.lvclass:Send command ADC.vi]
+
+*Description:*
+++++
+Se manda el comando para leer el ADC, se escribe en el puerto serial y se lee la respuesta que de el micro simulado.
+++++
+
+===== Simulado.lvclass:Send command Get Pin.vi
+
+:imgpath: Simulado.lvclass_Send command Get Pin.vi.png
+image::{imgpath}[Simulado.lvclass:Send command Get Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para leer obtener el status del pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Simulado.lvclass:Send command Get Port.vi
+
+:imgpath: Simulado.lvclass_Send command Get Port.vi.png
+image::{imgpath}[Simulado.lvclass:Send command Get Port.vi]
+
+*Description:*
+++++
+Se manda el comando para obtener el estatus del puerto, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Simulado.lvclass:Send command Set Pin.vi
+
+:imgpath: Simulado.lvclass_Send command Set Pin.vi.png
+image::{imgpath}[Simulado.lvclass:Send command Set Pin.vi]
+
+*Description:*
+++++
+Se manda el comando para darle un valor a un pin, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+===== Simulado.lvclass:Send command Set Port.vi
+
+:imgpath: Simulado.lvclass_Send command Set Port.vi.png
+image::{imgpath}[Simulado.lvclass:Send command Set Port.vi]
+
+*Description:*
+++++
+Se manda el comando para poner el peurto en un valor en hexadecimal, se escribe en el puerto serial y se lee la respuesta que de el micro.
+++++
+
+==== Test ADC Command.lvclass
+
+===== Test ADC Command.lvclass:setUp.vi
+
+:imgpath: Test ADC Command.lvclass_setUp.vi.png
+image::{imgpath}[Test ADC Command.lvclass:setUp.vi]
+
+*Description:*
+++++
+setUp runs prior to the test method during test execution.  Use this method to initialize any object data required by your tests.
+++++
+
+===== Test ADC Command.lvclass:tearDown.vi
+
+:imgpath: Test ADC Command.lvclass_tearDown.vi.png
+image::{imgpath}[Test ADC Command.lvclass:tearDown.vi]
+
+*Description:*
+++++
+tearDown runs after the test method has completed.  Use this method to clean up any operations or references that were opened by setUp or the test method.  Unit tests should be independent of other unit tests so this VI should ensure that the next test can run in a 'clean' test environment.
+++++
+
+===== Test ADC Command.lvclass:testExample.vit
+
+:imgpath: Test ADC Command.lvclass_testExample.vit.png
+image::{imgpath}[Test ADC Command.lvclass:testExample.vit]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test ADC Command.lvclass:temp_VI_UnderTest.vi
+
+:imgpath: Test ADC Command.lvclass_temp_VI_UnderTest.vi.png
+image::{imgpath}[Test ADC Command.lvclass:temp_VI_UnderTest.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test ADC Command.lvclass:Test Serial ADC Command Response.vi
+
+:imgpath: Test ADC Command.lvclass_Test Serial ADC Command Response.vi.png
+image::{imgpath}[Test ADC Command.lvclass:Test Serial ADC Command Response.vi]
+
+*Description:*
+++++
+En este vi tomado como template del testExample se prueba el comando mandado para leer el ADC del microcontrolador simulado.
+++++
+
+==== Test Get Pin Status.lvclass
+
+===== Test Get Pin Status.lvclass:setUp.vi
+
+:imgpath: Test Get Pin Status.lvclass_setUp.vi.png
+image::{imgpath}[Test Get Pin Status.lvclass:setUp.vi]
+
+*Description:*
+++++
+setUp runs prior to the test method during test execution.  Use this method to initialize any object data required by your tests.
+++++
+
+===== Test Get Pin Status.lvclass:tearDown.vi
+
+:imgpath: Test Get Pin Status.lvclass_tearDown.vi.png
+image::{imgpath}[Test Get Pin Status.lvclass:tearDown.vi]
+
+*Description:*
+++++
+tearDown runs after the test method has completed.  Use this method to clean up any operations or references that were opened by setUp or the test method.  Unit tests should be independent of other unit tests so this VI should ensure that the next test can run in a 'clean' test environment.
+++++
+
+===== Test Get Pin Status.lvclass:testExample.vit
+
+:imgpath: Test Get Pin Status.lvclass_testExample.vit.png
+image::{imgpath}[Test Get Pin Status.lvclass:testExample.vit]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Get Pin Status.lvclass:temp_VI_UnderTest.vi
+
+:imgpath: Test Get Pin Status.lvclass_temp_VI_UnderTest.vi.png
+image::{imgpath}[Test Get Pin Status.lvclass:temp_VI_UnderTest.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Get Pin Status.lvclass:Test Get Pin Status Comm.vi
+
+:imgpath: Test Get Pin Status.lvclass_Test Get Pin Status Comm.vi.png
+image::{imgpath}[Test Get Pin Status.lvclass:Test Get Pin Status Comm.vi]
+
+*Description:*
+++++
+En este vi tomado como template del testExample se prueba el comando mandado para obtener el status de un pin del microcontrolador simulado.
+++++
+
+==== Test Get Port Status Comand.lvclass
+
+===== Test Get Port Status Comand.lvclass:setUp.vi
+
+:imgpath: Test Get Port Status Comand.lvclass_setUp.vi.png
+image::{imgpath}[Test Get Port Status Comand.lvclass:setUp.vi]
+
+*Description:*
+++++
+setUp runs prior to the test method during test execution.  Use this method to initialize any object data required by your tests.
+++++
+
+===== Test Get Port Status Comand.lvclass:tearDown.vi
+
+:imgpath: Test Get Port Status Comand.lvclass_tearDown.vi.png
+image::{imgpath}[Test Get Port Status Comand.lvclass:tearDown.vi]
+
+*Description:*
+++++
+tearDown runs after the test method has completed.  Use this method to clean up any operations or references that were opened by setUp or the test method.  Unit tests should be independent of other unit tests so this VI should ensure that the next test can run in a 'clean' test environment.
+++++
+
+===== Test Get Port Status Comand.lvclass:testExample.vit
+
+:imgpath: Test Get Port Status Comand.lvclass_testExample.vit.png
+image::{imgpath}[Test Get Port Status Comand.lvclass:testExample.vit]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Get Port Status Comand.lvclass:temp_VI_UnderTest.vi
+
+:imgpath: Test Get Port Status Comand.lvclass_temp_VI_UnderTest.vi.png
+image::{imgpath}[Test Get Port Status Comand.lvclass:temp_VI_UnderTest.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Get Port Status Comand.lvclass:Test Get Port Status Comm.vi
+
+:imgpath: Test Get Port Status Comand.lvclass_Test Get Port Status Comm.vi.png
+image::{imgpath}[Test Get Port Status Comand.lvclass:Test Get Port Status Comm.vi]
+
+*Description:*
+++++
+En este vi tomado como template del testExample se prueba el comando mandado para obtener el valor del puerto del microcontrolador simulado.
+++++
+
+==== Test Set Pin Status Command.lvclass
+
+===== Test Set Pin Status Command.lvclass:setUp.vi
+
+:imgpath: Test Set Pin Status Command.lvclass_setUp.vi.png
+image::{imgpath}[Test Set Pin Status Command.lvclass:setUp.vi]
+
+*Description:*
+++++
+setUp runs prior to the test method during test execution.  Use this method to initialize any object data required by your tests.
+++++
+
+===== Test Set Pin Status Command.lvclass:tearDown.vi
+
+:imgpath: Test Set Pin Status Command.lvclass_tearDown.vi.png
+image::{imgpath}[Test Set Pin Status Command.lvclass:tearDown.vi]
+
+*Description:*
+++++
+tearDown runs after the test method has completed.  Use this method to clean up any operations or references that were opened by setUp or the test method.  Unit tests should be independent of other unit tests so this VI should ensure that the next test can run in a 'clean' test environment.
+++++
+
+===== Test Set Pin Status Command.lvclass:testExample.vit
+
+:imgpath: Test Set Pin Status Command.lvclass_testExample.vit.png
+image::{imgpath}[Test Set Pin Status Command.lvclass:testExample.vit]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Set Pin Status Command.lvclass:temp_VI_UnderTest.vi
+
+:imgpath: Test Set Pin Status Command.lvclass_temp_VI_UnderTest.vi.png
+image::{imgpath}[Test Set Pin Status Command.lvclass:temp_VI_UnderTest.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Set Pin Status Command.lvclass:Test Set Pin Status Command.vi
+
+:imgpath: Test Set Pin Status Command.lvclass_Test Set Pin Status Command.vi.png
+image::{imgpath}[Test Set Pin Status Command.lvclass:Test Set Pin Status Command.vi]
+
+*Description:*
+++++
+En este vi tomado como template del testExample se prueba el comando mandado para darle valor a un pin del microcontrolador simulado.
+++++
+
+==== Test Set Port Status Command.lvclass
+
+===== Test Set Port Status Command.lvclass:setUp.vi
+
+:imgpath: Test Set Port Status Command.lvclass_setUp.vi.png
+image::{imgpath}[Test Set Port Status Command.lvclass:setUp.vi]
+
+*Description:*
+++++
+setUp runs prior to the test method during test execution.  Use this method to initialize any object data required by your tests.
+++++
+
+===== Test Set Port Status Command.lvclass:tearDown.vi
+
+:imgpath: Test Set Port Status Command.lvclass_tearDown.vi.png
+image::{imgpath}[Test Set Port Status Command.lvclass:tearDown.vi]
+
+*Description:*
+++++
+tearDown runs after the test method has completed.  Use this method to clean up any operations or references that were opened by setUp or the test method.  Unit tests should be independent of other unit tests so this VI should ensure that the next test can run in a 'clean' test environment.
+++++
+
+===== Test Set Port Status Command.lvclass:testExample.vit
+
+:imgpath: Test Set Port Status Command.lvclass_testExample.vit.png
+image::{imgpath}[Test Set Port Status Command.lvclass:testExample.vit]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Set Port Status Command.lvclass:temp_VI_UnderTest.vi
+
+:imgpath: Test Set Port Status Command.lvclass_temp_VI_UnderTest.vi.png
+image::{imgpath}[Test Set Port Status Command.lvclass:temp_VI_UnderTest.vi]
+
+*Description:*
+No description found (add content in VI description)
+
+===== Test Set Port Status Command.lvclass:Test Set Port Status Comm.vi
+
+:imgpath: Test Set Port Status Command.lvclass_Test Set Port Status Comm.vi.png
+image::{imgpath}[Test Set Port Status Command.lvclass:Test Set Port Status Comm.vi]
+
+*Description:*
+++++
+En este vi tomado como template del testExample se prueba el comando mandado para darle valor a un puerto del microcontrolador simulado.
+++++
+
+==== Get Pin Status Msg.lvclass
+
+===== UI Actor.lvlib:Get Pin Status Msg.lvclass:Send Get Pin Status.vi
+
+:imgpath: UI Actor.lvlib_Get Pin Status Msg.lvclass_Send Get Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Pin Status Msg.lvclass:Send Get Pin Status.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status de un pin
+++++
+
+===== UI Actor.lvlib:Get Pin Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Get Pin Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Pin Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para obtener el status de un pin
+++++
+
+==== Get Port Status Msg.lvclass
+
+===== UI Actor.lvlib:Get Port Status Msg.lvclass:Send Get Port Status.vi
+
+:imgpath: UI Actor.lvlib_Get Port Status Msg.lvclass_Send Get Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Port Status Msg.lvclass:Send Get Port Status.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status del puerto
+++++
+
+===== UI Actor.lvlib:Get Port Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Get Port Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Get Port Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda el mensaje para obtener el status del puerto
+++++
+
+==== Init Msg.lvclass
+
+===== UI Actor.lvlib:Init Msg.lvclass:Send Init.vi
+
+:imgpath: UI Actor.lvlib_Init Msg.lvclass_Send Init.vi.png
+image::{imgpath}[UI Actor.lvlib:Init Msg.lvclass:Send Init.vi]
+
+*Description:*
+++++
+Manda mensaje para incializar la comuncacion con el microcontrolador
+++++
+
+===== UI Actor.lvlib:Init Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Init Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Init Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para incializar la comuncacion con el microcontrolador
+++++
+
+==== Read ADC Msg.lvclass
+
+===== UI Actor.lvlib:Read ADC Msg.lvclass:Send Read ADC.vi
+
+:imgpath: UI Actor.lvlib_Read ADC Msg.lvclass_Send Read ADC.vi.png
+image::{imgpath}[UI Actor.lvlib:Read ADC Msg.lvclass:Send Read ADC.vi]
+
+*Description:*
+++++
+Manda mensaje para leer el ADC
+++++
+
+===== UI Actor.lvlib:Read ADC Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Read ADC Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Read ADC Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para leer el ADC
+++++
+
+==== Set Pin Status Msg.lvclass
+
+===== UI Actor.lvlib:Set Pin Status Msg.lvclass:Send Set Pin Status.vi
+
+:imgpath: UI Actor.lvlib_Set Pin Status Msg.lvclass_Send Set Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Pin Status Msg.lvclass:Send Set Pin Status.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un pin
+++++
+
+===== UI Actor.lvlib:Set Pin Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Set Pin Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Pin Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un pin
+++++
+
+==== Set Port Status Msg.lvclass
+
+===== UI Actor.lvlib:Set Port Status Msg.lvclass:Send Set Port Status.vi
+
+:imgpath: UI Actor.lvlib_Set Port Status Msg.lvclass_Send Set Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Port Status Msg.lvclass:Send Set Port Status.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un puerto en hexadecimal
+++++
+
+===== UI Actor.lvlib:Set Port Status Msg.lvclass:Do.vi
+
+:imgpath: UI Actor.lvlib_Set Port Status Msg.lvclass_Do.vi.png
+image::{imgpath}[UI Actor.lvlib:Set Port Status Msg.lvclass:Do.vi]
+
+*Description:*
+++++
+Manda mensaje para darle valor a un puerto en hexadecimal
+++++
+
+==== UI Actor.lvclass
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Marca.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Marca.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Marca.vi]
+
+*Description:*
+++++
+Lee la marca del micro
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Marca.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Marca.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Marca.vi]
+
+*Description:*
+++++
+Escribe la marca del micro
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Visa com port.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Visa com port.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Visa com port.vi]
+
+*Description:*
+++++
+Lee el puerto com
+
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Visa com port.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Visa com port.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Visa com port.vi]
+
+*Description:*
+++++
+Escribe el puerto com
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read Visa com port 2.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read Visa com port 2.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read Visa com port 2.vi]
+
+*Description:*
+++++
+Lee el puerto com
+
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Write Visa com port 2.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Write Visa com port 2.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Write Visa com port 2.vi]
+
+*Description:*
+++++
+Escribe el puerto com
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Get Pin Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Get Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Get Pin Status.vi]
+
+*Description:*
+++++
+Obtiene el valor del pin del micro seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Get Port Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Get Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Get Port Status.vi]
+
+*Description:*
+++++
+Obtiene el valor del puerto del micro de la marca seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Init.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Init.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Init.vi]
+
+*Description:*
+++++
+Inicializa la comunicacion serial con el micro de la marca seleccionada
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Read ADC.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Read ADC.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Read ADC.vi]
+
+*Description:*
+++++
+Lee el valor que se encuentre en el ADC del micro de la marca seleccionada
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDGETPort.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDGETPort.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDGETPort.vi]
+
+*Description:*
+++++
+Dependiendo del comando que se obtenga serial para saber el valor del puerto es traducido en leds que se muestran en Actor core con ayuda de eventos
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDLEDUPDT.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDLEDUPDT.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDLEDUPDT.vi]
+
+*Description:*
+++++
+Dependiendo de la respuesta que de el puerto serial se traducira en leds para mostrar el estatus tambien en la interfaz del actor ui
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDPORTUPDT.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDPORTUPDT.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDPORTUPDT.vi]
+
+*Description:*
+++++
+Dependiendo del comando que se obtenga serial para saber el valor del puerto es traducido en leds que se muestran en Actor core con ayuda de eventos
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:SDSETP.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_SDSETP.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:SDSETP.vi]
+
+*Description:*
+++++
+Dependiendo de la respuesta que de el puerto serial se traducira en leds para mostrar el estatus tambien en la interfaz del actor ui
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Set Pin Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Set Pin Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Set Pin Status.vi]
+
+*Description:*
+++++
+Se le da un valor de alto o bajo a un pin de un puerto de la marca del micro seleccionado
+++++
+
+===== UI Actor.lvlib:UI Actor.lvclass:Set Port Status.vi
+
+:imgpath: UI Actor.lvlib_UI Actor.lvclass_Set Port Status.vi.png
+image::{imgpath}[UI Actor.lvlib:UI Actor.lvclass:Set Port Status.vi]
+
+*Description:*
+++++
+Se le da un valor en hexadecimal a un puerto de la marca del micro seleccionado
+++++
+
+== Legal Information
+
+=== Document creation
+
+This document has been generated using the following tools.
+
+==== Antidoc
+
+Project website: https://wovalab.gitlab.io/open-source/labview-doc-generator/[Antidoc] 
+
+Maintainer website: https://wovalab.com[Wovalab] 
+
+BSD 3-Clause License
+
+Copyright (C) 2019, Wovalab,
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+==== Asciidoc for LabVIEW(TM)
+
+Project website: https://wovalab.gitlab.io/open-source/asciidoc-toolkit/[Asciidoc toolkit] 
+
+Maintainer website: https://wovalab.com[Wovalab] 
+
+BSD 3-Clause License
+
+Copyright (C) 2019, Wovalab,
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+==== Graph Builder
+
+Project website: https://gitlab.com/cgambini/graph-builder[Graph Builder]
+
+BSD 3-Clause License
+
+Copyright (c) 2020, Cyril GAMBINI
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+=== Product used in the project
+
+Antidoc hasn't been able to detect third party products in the project.
+This is the author's responsibility to list any of the missing product used.
